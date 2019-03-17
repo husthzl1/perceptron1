@@ -1,0 +1,40 @@
+def train(theta,x,y):
+    alpha=0.01
+    ri=[]
+    for xyi in zip(x,y):
+        ir=predict(theta,[xyi[0],])[0]
+        ri.append(ir)
+        print(ir)
+        if ir==xyi[1]:
+            print('good')
+            pass
+        else:
+            print('todo')
+            theta[0]+=alpha*(xyi[1]-ir)*xyi[0][0]
+            theta[1]+=alpha*(xyi[1]-ir)*xyi[0][1]
+    if ri!=y:
+        train(theta,x,y)
+    return theta
+
+def predict(theta,x):
+    r=[]
+    for xi in x:
+        ir =theta[0]*xi[0]+theta[1]*xi[1]+theta[2]
+        if ir>0:
+            r.append(1)
+        else:
+            r.append(-1)
+    return r
+
+if __name__=='__main__':
+    x=[(3,2),(5,6),(1,1),(-1,-1),(-3,-2)]
+    y=[1,-1,1,1,-1]
+    w=[-0.5,0.6,0.7]    
+    r=predict(w,x)
+    print(y)
+    print(r)
+    w=train(w,x,y)
+    r=predict(w,x)
+    print(w)
+    print(y)
+    print(r)
